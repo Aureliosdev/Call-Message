@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  Call & Messages
 //
 //  Created by Aurelio Le Clarke on 14.09.2022.
@@ -7,18 +7,14 @@
 
 import UIKit
 
-class MessageViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemMint
+        view.backgroundColor = .systemBackground
+     
     }
+    
 
 
 }
-
