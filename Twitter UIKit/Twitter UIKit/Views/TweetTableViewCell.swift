@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 protocol TweetTableViewCellDelegate: AnyObject {
     func tweetTableViewCellDidTapReply()
     func tweetTableViewCellDidTapReTweet()
@@ -30,8 +31,9 @@ class TweetTableViewCell: UITableViewCell {
         image.layer.cornerRadius  =  25
         image.layer.masksToBounds = true
         image.clipsToBounds =  true
-        image.image = UIImage(systemName: "person")
-        image.backgroundColor = .red
+        image.image = UIImage(named: "Captain")
+        image.tintColor = .white
+        image.backgroundColor = .systemMint
         return image
     }()
     
@@ -55,20 +57,23 @@ class TweetTableViewCell: UITableViewCell {
         
         return label
     }()
+    
+  
+  
+    
     private let tweetContentLabel: UILabel = {
         let label = UILabel()
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "This is just an example of how article is shows. Don't bother yourself to understand it"
+        label.text = "Hello World"
+
         label.numberOfLines = 0
-        
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let replyButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "bubble.left"), for: .normal)
+        button.setImage(UIImage(named: "replyIcon"), for: .normal)
         
         button.tintColor = .systemGray2
         
@@ -79,7 +84,7 @@ class TweetTableViewCell: UITableViewCell {
     private let reTweetButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "arrow.2.squarepath"), for: .normal)
+        button.setImage(UIImage(named: "reTweetIcon"), for: .normal)
         
         button.tintColor = .systemGray2
         
@@ -89,7 +94,7 @@ class TweetTableViewCell: UITableViewCell {
     private let likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.setImage(UIImage(named: "likeIcon"), for: .normal)
         
         button.tintColor = .systemGray2
         
@@ -98,12 +103,24 @@ class TweetTableViewCell: UITableViewCell {
     private let shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.setImage(UIImage(named: "shareIcon"), for: .normal)
         button.tintColor = .systemGray2
         
         return button
     }()
     
+    
+ //Passing to HomVC and change every cell's text
+    public func configure(text: String)  {
+        tweetContentLabel.text = text
+        
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tweetContentLabel.text = nil
+    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(avatarImageView)
@@ -116,6 +133,8 @@ class TweetTableViewCell: UITableViewCell {
         contentView.addSubview(replyButton)
         configureConsts()
         configureButtons()
+     
+        
     }
     @objc private func didTapReply() {
         delegate?.tweetTableViewCellDidTapReply()
