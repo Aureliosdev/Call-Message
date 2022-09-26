@@ -9,12 +9,44 @@ import UIKit
 
 class ProfileHeader: UIView {
 
-    private let 
+    private let followersTextLabel: UILabel = {
+        let label = UILabel()
+          label.translatesAutoresizingMaskIntoConstraints = false
+          label.text = "Followers"
+          label.textColor = .secondaryLabel
+          label.font = .systemFont(ofSize: 14,weight: .regular)
+          return label
+          
+        
+    }()
     
-    private let folowingCountLabel: UILabel = {
+    private let followersCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "3,2,1"
+        label.text = "10M"
+        label.textColor = .secondaryLabel
+        label.font = .systemFont(ofSize: 14,weight: .regular)
+        return label
+        
+        
+        
+    }()
+    
+    private let followingTextLabel: UILabel = {
+      let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Following"
+        label.textColor = .secondaryLabel
+        label.font = .systemFont(ofSize: 14,weight: .regular)
+        return label
+        
+    }()
+    
+    
+    private let followingCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0"
         label.textColor = .label
         label.font = .systemFont(ofSize: 14,weight: .bold)
 
@@ -44,7 +76,7 @@ class ProfileHeader: UIView {
     private let userName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "@WelcometoProject"
+        label.text = "@Aurelio Le Clarke"
         label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 18,weight: .regular)
         return label
@@ -56,7 +88,7 @@ class ProfileHeader: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
         label.textColor = .label
-        label.text = "Flutter top!!!"
+        label.text = "Seoul Based:)"
         return label
         
     }()
@@ -64,7 +96,7 @@ class ProfileHeader: UIView {
     private let displayName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Aurelio"
+        label.text = "Abylay"
         label.textColor = .label
         label.font = .systemFont(ofSize: 22,weight: .bold)
         return label
@@ -104,8 +136,11 @@ class ProfileHeader: UIView {
         addSubview(userBioLabel)
         addSubview(joinDataImageView)
         addSubview(joinDateLabel)
-       addSubview(folowingCountLabel)
-     ProfileHeaderApplyConsts()
+        addSubview(followingCountLabel)
+        addSubview(followersTextLabel)
+        addSubview(followingTextLabel)
+        addSubview(followersCountLabel)
+        ProfileHeaderApplyConsts()
     
     }
     
@@ -138,7 +173,7 @@ class ProfileHeader: UIView {
         
     let userNameConsts = [
         userName.leadingAnchor.constraint(equalTo:  displayName.leadingAnchor),
-        userName.topAnchor.constraint(equalTo: displayName.bottomAnchor,constant: 20)
+        userName.topAnchor.constraint(equalTo: displayName.bottomAnchor,constant: 10)
     ]
         
     let userBioConsts = [
@@ -158,6 +193,25 @@ class ProfileHeader: UIView {
             joinDateLabel.bottomAnchor.constraint(equalTo: joinDataImageView.bottomAnchor)
         ]
         
+        let followingCountConsts = [
+            followingCountLabel.leadingAnchor.constraint(equalTo: displayName.leadingAnchor),
+            followingCountLabel.topAnchor.constraint(equalTo: joinDateLabel.bottomAnchor,constant: 10)
+        ]
+        let followingTextConsts = [
+            followingTextLabel.leadingAnchor.constraint(equalTo: followingCountLabel.trailingAnchor,constant: 5),
+            followingTextLabel.bottomAnchor.constraint(equalTo: followingCountLabel.bottomAnchor)
+        ]
+        
+        let followerCountConsts = [
+            followersCountLabel.leadingAnchor.constraint(equalTo: followingTextLabel.trailingAnchor,constant: 8),
+            followersCountLabel.bottomAnchor.constraint(equalTo: followingCountLabel.bottomAnchor)
+        ]
+        
+        let followersTextConsts = [
+            followersTextLabel.leadingAnchor.constraint(equalTo: followersCountLabel.trailingAnchor,constant: 5),
+            followersTextLabel.bottomAnchor.constraint(equalTo: followingCountLabel.bottomAnchor)
+        ]
+        
         NSLayoutConstraint.activate(profileImageHeaderConsts)
         NSLayoutConstraint.activate(profileAvatarConsts)
         NSLayoutConstraint.activate(displayLabeConsts)
@@ -165,6 +219,10 @@ class ProfileHeader: UIView {
         NSLayoutConstraint.activate(userBioConsts)
         NSLayoutConstraint.activate(joinDataConsts)
         NSLayoutConstraint.activate(joinDateConsts)
+        NSLayoutConstraint.activate(followingCountConsts)
+        NSLayoutConstraint.activate(followingTextConsts)
+        NSLayoutConstraint.activate(followerCountConsts)
+        NSLayoutConstraint.activate(followersTextConsts)
     }
     
     

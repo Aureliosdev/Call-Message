@@ -64,11 +64,22 @@ class HomeViewController: UIViewController {
 
     let myarray = ["I like hamburgers.My favourite brands is Lotteria","Sometimes i listen Korean music.KPop is nice","I play and create app about Dota2.Thats my main focus","Russians send their people for war! Shame","Weather in Astana is 18 degrees below","Im tired from photoshop"]
    
+    let namesArray = ["John","Steve","Mark","Tony Stark","Thor","Richard"]
+    
+    let picturesArray = [
+        UIImage(named: "deposit"),
+        UIImage(named: "pepsi"),
+        UIImage(named: "superman"),
+        UIImage(named: "flutter"),
+        UIImage(named: "starbucks"),
+        UIImage(named: "bts")
+    ]
 }
 extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myarray.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,8 +87,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
           
         cell.delegate = self
         
-        cell.configure(text: myarray[indexPath.row])
-        
+        cell.configure(text: myarray[indexPath.row], displayNameLabels: namesArray[indexPath.row], avatarImage: picturesArray[indexPath.row] ?? UIImage())
+       
             
             return cell
     }
