@@ -9,6 +9,25 @@ import UIKit
 
 class ProfileHeader: UIView {
 
+    private var  tabs: [UIButton] = ["Tweets","Tweet & Replies","Media","Likes"].map { buttonTitle in
+        let button = UIButton(type: .system)
+        button.setTitle(buttonTitle, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.tintColor = .label
+        return button
+    }
+    
+    private lazy var sectionStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: tabs)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .equalSpacing
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.backgroundColor = .systemBackground
+        return stackView
+    }()
+    
     private let followersTextLabel: UILabel = {
         let label = UILabel()
           label.translatesAutoresizingMaskIntoConstraints = false
@@ -140,6 +159,7 @@ class ProfileHeader: UIView {
         addSubview(followersTextLabel)
         addSubview(followingTextLabel)
         addSubview(followersCountLabel)
+        addSubview(sectionStack)
         ProfileHeaderApplyConsts()
     
     }
@@ -166,7 +186,7 @@ class ProfileHeader: UIView {
         
     let displayLabeConsts = [
         displayName.leadingAnchor.constraint(equalTo: profileAvatarImageView.leadingAnchor),
-        displayName.topAnchor.constraint(equalTo: profileAvatarImageView.bottomAnchor,constant: 20),
+        displayName.topAnchor.constraint(equalTo: profileAvatarImageView.bottomAnchor,constant: 5),
     
     
     ]
@@ -211,7 +231,12 @@ class ProfileHeader: UIView {
             followersTextLabel.leadingAnchor.constraint(equalTo: followersCountLabel.trailingAnchor,constant: 5),
             followersTextLabel.bottomAnchor.constraint(equalTo: followingCountLabel.bottomAnchor)
         ]
-        
+        let sectionStackConsts = [
+            sectionStack.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 25),
+            sectionStack.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -25),
+            sectionStack.topAnchor.constraint(equalTo: followersCountLabel.bottomAnchor,constant: 5),
+            sectionStack.heightAnchor.constraint(equalToConstant: 35)
+        ]
         NSLayoutConstraint.activate(profileImageHeaderConsts)
         NSLayoutConstraint.activate(profileAvatarConsts)
         NSLayoutConstraint.activate(displayLabeConsts)
@@ -223,6 +248,7 @@ class ProfileHeader: UIView {
         NSLayoutConstraint.activate(followingTextConsts)
         NSLayoutConstraint.activate(followerCountConsts)
         NSLayoutConstraint.activate(followersTextConsts)
+        NSLayoutConstraint.activate(sectionStackConsts	)
     }
     
     

@@ -111,10 +111,11 @@ class TweetTableViewCell: UITableViewCell {
     
     
  //Passing to HomVC and change every cell's text
-    public func configure(text: String,displayNameLabels: String,avatarImage: UIImage)  {
+    public func configure(text: String,displayNameLabels: String,avatarImage: UIImage,userNames: String)  {
         tweetContentLabel.text = text
         displayNameLabel.text = displayNameLabels
         avatarImageView.image = avatarImage
+        userName.text = userNames
         
     }
     

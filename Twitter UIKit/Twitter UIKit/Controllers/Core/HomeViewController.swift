@@ -61,10 +61,13 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         timelineTableView.frame = view.frame
     }
-
-    let myarray = ["I like hamburgers.My favourite brands is Lotteria","Sometimes i listen Korean music.KPop is nice","I play and create app about Dota2.Thats my main focus","Russians send their people for war! Shame","Weather in Astana is 18 degrees below","Im tired from photoshop"]
+    let userNamesArray = [
+        "@FlutterBoy","@SystemHack","@LatestNewss","GachiMuchiRussia","@KingPython","@SamsungDevs"
+    ]
+    
+    let myarray = ["Kazakhstan to ‘ensure safety’ of Russians fleeing draft","Lorenzo Sonego beats Alexander Bublik at Moselle Open to win first title of 2022","Five-year deal for Kazakhstan race announced by MotoGP","US Navy sends its most advanced surface warship to east Asia","Not sleeping enough may harm your immune system and trigger inflammation","Amazon adds a second Prime Day sale"]
    
-    let namesArray = ["John","Steve","Mark","Tony Stark","Thor","Richard"]
+    let namesArray = ["John","Bernard","Mark","Tony","Martin ","Richard"]
     
     let picturesArray = [
         UIImage(named: "deposit"),
@@ -87,7 +90,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
           
         cell.delegate = self
         
-        cell.configure(text: myarray[indexPath.row], displayNameLabels: namesArray[indexPath.row], avatarImage: picturesArray[indexPath.row] ?? UIImage())
+        cell.configure(text: myarray[indexPath.row], displayNameLabels: namesArray[indexPath.row], avatarImage: picturesArray[indexPath.row] ?? UIImage(), userNames: userNamesArray[indexPath.row])
        
             
             return cell
