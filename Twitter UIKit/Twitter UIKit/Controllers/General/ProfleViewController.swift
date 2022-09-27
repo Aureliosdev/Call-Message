@@ -37,7 +37,7 @@ class ProfleViewController: UIViewController {
         profileTableView.delegate = self
         profileTableView.dataSource = self
         configureConsts()
-        let header = ProfileHeader(frame: CGRect(x:  0, y: 0, width: profileTableView.frame.width, height: 380))
+        let header = ProfileHeader(frame: CGRect(x:  0, y: 0, width: profileTableView.frame.width, height: 400))
         profileTableView.tableHeaderView  = header
         navigationController?.navigationBar.isHidden = true
         profileTableView.contentInsetAdjustmentBehavior = .never

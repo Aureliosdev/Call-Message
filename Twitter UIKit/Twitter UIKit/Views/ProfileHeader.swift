@@ -9,6 +9,55 @@ import UIKit
 
 class ProfileHeader: UIView {
 
+    private enum SectionTabs: String {
+        case tweets = "Tweets"
+        case tweetAndReplies = "Tweet & Replies"
+        case media = "Media"
+        case likes = "Likes"
+        
+        var index: Int {
+            switch self {
+            case .tweets:
+                return 0
+            case .tweetAndReplies:
+                return 1
+            case .media:
+                return 2
+            case .likes:
+                return 3
+            }
+        }
+    }
+    private var leadingAnchors: [NSLayoutConstraint] = []
+    private var trailingAnchors: [NSLayoutConstraint] = []
+    
+    private let indicator: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(displayP3Red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
+        
+        return view
+    }()
+    
+    
+    private var selectedTab: Int = 0 {
+        didSet {
+            for i in 0..<tabs.count {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [ weak self] in
+                    self?.sectionStack.arrangedSubviews[i].tintColor = i == self?.selectedTab ? .label : .secondaryLabel
+                    self?.leadingAnchors[i].isActive = i == self?.selectedTab ? true : false
+                    self?.trailingAnchors[i].isActive = i == self?.selectedTab ? true : false
+                    self?.layoutIfNeeded()
+                } completion: { _ in
+                    
+                }
+
+            }
+        }
+    }
+    
+    
+    //Multiple buttons in horizontal stack
     private var  tabs: [UIButton] = ["Tweets","Tweet & Replies","Media","Likes"].map { buttonTitle in
         let button = UIButton(type: .system)
         button.setTitle(buttonTitle, for: .normal)
@@ -160,13 +209,22 @@ class ProfileHeader: UIView {
         addSubview(followingTextLabel)
         addSubview(followersCountLabel)
         addSubview(sectionStack)
+        addSubview(indicator)
         ProfileHeaderApplyConsts()
+        configureStackButtons()
     
     }
     
     
     private func ProfileHeaderApplyConsts() {
-       let profileImageHeaderConsts = [
+        for i in 0..<tabs.count {
+            let leadingAnchor = indicator.leadingAnchor.constraint(equalTo: sectionStack.arrangedSubviews[i].leadingAnchor)
+            leadingAnchors.append(leadingAnchor)
+            let trailingAnchor = indicator.trailingAnchor.constraint(equalTo: sectionStack.arrangedSubviews[i].trailingAnchor)
+            trailingAnchors.append(trailingAnchor)
+        }
+        
+        let profileImageHeaderConsts = [
         profileImageHeader.leadingAnchor.constraint(equalTo: leadingAnchor),
         profileImageHeader.trailingAnchor.constraint(equalTo: trailingAnchor),
         profileImageHeader.topAnchor.constraint(equalTo: topAnchor),
@@ -237,6 +295,13 @@ class ProfileHeader: UIView {
             sectionStack.topAnchor.constraint(equalTo: followersCountLabel.bottomAnchor,constant: 5),
             sectionStack.heightAnchor.constraint(equalToConstant: 35)
         ]
+        
+        let indicatorConsts = [
+            leadingAnchors[0],
+            trailingAnchors[0],
+            indicator.topAnchor.constraint(equalTo: sectionStack.arrangedSubviews[0].bottomAnchor),
+            indicator.heightAnchor.constraint(equalToConstant: 4)
+        ]
         NSLayoutConstraint.activate(profileImageHeaderConsts)
         NSLayoutConstraint.activate(profileAvatarConsts)
         NSLayoutConstraint.activate(displayLabeConsts)
@@ -248,9 +313,43 @@ class ProfileHeader: UIView {
         NSLayoutConstraint.activate(followingTextConsts)
         NSLayoutConstraint.activate(followerCountConsts)
         NSLayoutConstraint.activate(followersTextConsts)
-        NSLayoutConstraint.activate(sectionStackConsts	)
+        NSLayoutConstraint.activate(indicatorConsts)
+        NSLayoutConstraint.activate(sectionStackConsts)
     }
     
+    private func configurecCOnstraints() {
+     
+    }
+    
+    private func configureStackButtons() {
+        for(i,button) in sectionStack.arrangedSubviews.enumerated() {
+            guard let button = button as? UIButton else { return }
+            button.addTarget(self, action: #selector(didTapTab(_:)), for: .touchUpInside)
+            
+            if i == selectedTab {
+                button.tintColor = .label
+            }else {
+                button.tintColor = .secondaryLabel
+            }
+        }
+    }
+    
+    
+    @objc private func didTapTab(_ sender: UIButton) {
+        guard let label = sender.titleLabel?.text else { return }
+        switch label {
+        case SectionTabs.tweets.rawValue:
+            selectedTab = 0
+        case SectionTabs.tweetAndReplies.rawValue:
+            selectedTab = 1
+        case SectionTabs.media.rawValue:
+            selectedTab = 2
+        case SectionTabs.likes.rawValue:
+            selectedTab = 3
+        default:
+            selectedTab = 0
+        }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
