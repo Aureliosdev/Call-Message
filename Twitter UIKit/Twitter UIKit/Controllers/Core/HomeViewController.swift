@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
@@ -42,8 +42,6 @@ class HomeViewController: UIViewController {
         
     }()
     
-
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(timelineTableView)
@@ -51,9 +49,18 @@ class HomeViewController: UIViewController {
         timelineTableView.dataSource = self
         configureNavigationBar()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        
+        //Checking if user signed in or not
+        
+        if Auth.auth().currentUser == nil {
+            let vc = UINavigationController(rootViewController: OnboardingViewController())
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
     }
     
     

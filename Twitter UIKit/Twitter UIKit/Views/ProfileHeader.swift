@@ -133,7 +133,7 @@ class ProfileHeader: UIView {
     private let joinDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Joined in 23 of September"
+        label.text = "Joined in 23 of September 2015"
         label.textColor = .secondaryLabel
        
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -156,7 +156,7 @@ class ProfileHeader: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
         label.textColor = .label
-        label.text = "Seoul Based:)"
+        label.text = "Welcome to my profile!"
         return label
         
     }()
