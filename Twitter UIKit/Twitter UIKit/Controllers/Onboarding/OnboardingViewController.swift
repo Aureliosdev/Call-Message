@@ -62,8 +62,16 @@ class OnboardingViewController: UIViewController {
         view.addSubview(loginButton)
         configureConstraints()
     
+        createButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
     }
 
+    @objc private func didTapCreateAccount() {
+        let vc  = RegisterViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
     private func configureConstraints() {
         let welcomeLabelConsts = [
             welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
