@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D32A12CC28F7F0E9001BD773 /* RegisterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32A12CB28F7F0E9001BD773 /* RegisterViewViewModel.swift */; };
+		D32A12CF28F839CD001BD773 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32A12CE28F839CD001BD773 /* AuthManager.swift */; };
 		D3785CD128F580E1008FDD8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3785CD028F580E1008FDD8C /* GoogleService-Info.plist */; };
 		D3785CD428F5827D008FDD8C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D3785CD328F5827D008FDD8C /* FirebaseAuth */; };
 		D3785CD628F5827D008FDD8C /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D3785CD528F5827D008FDD8C /* FirebaseAuthCombine-Community */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D32A12CB28F7F0E9001BD773 /* RegisterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewViewModel.swift; sourceTree = "<group>"; };
+		D32A12CE28F839CD001BD773 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D3785CD028F580E1008FDD8C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D3785CE628F58455008FDD8C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D3785CE828F58F5E008FDD8C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +77,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D32A12CA28F7F0C1001BD773 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D32A12CB28F7F0E9001BD773 /* RegisterViewViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D32A12CD28F839B4001BD773 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D32A12CE28F839CD001BD773 /* AuthManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		D3785CE528F5841A008FDD8C /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +121,8 @@
 		D3AEDF0928D8593F00E27F60 /* Twitter UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				D32A12CD28F839B4001BD773 /* Networking */,
+				D32A12CA28F7F0C1001BD773 /* ViewModels */,
 				D3AEDF2928D8E57D00E27F60 /* Views */,
 				D3AEDF2828D8E57000E27F60 /* Other */,
 				D3AEDF1E28D8E19D00E27F60 /* Controllers */,
@@ -246,12 +268,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3AEDF2328D8E1CD00E27F60 /* SearchViewController.swift in Sources */,
+				D32A12CF28F839CD001BD773 /* AuthManager.swift in Sources */,
 				D3AEDF0F28D8593F00E27F60 /* MainTabBarController.swift in Sources */,
 				D3AEDF0B28D8593F00E27F60 /* AppDelegate.swift in Sources */,
 				D3785CE928F58F5E008FDD8C /* RegisterViewController.swift in Sources */,
 				D3AEDF2528D8E1DF00E27F60 /* NotificationsViewController.swift in Sources */,
 				D3AEDF0D28D8593F00E27F60 /* SceneDelegate.swift in Sources */,
 				D3AEDF2128D8E1B900E27F60 /* HomeViewController.swift in Sources */,
+				D32A12CC28F7F0E9001BD773 /* RegisterViewViewModel.swift in Sources */,
 				D3AEDF2728D8E1F900E27F60 /* DirectMessagesViewController.swift in Sources */,
 				D3AEDF2E28DCDA4A00E27F60 /* ProfleViewController.swift in Sources */,
 				D3AEDF3028DD83FF00E27F60 /* ProfileHeader.swift in Sources */,
@@ -408,7 +432,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.abylay.Twitter-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.abylay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -436,7 +460,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.abylay.Twitter-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.abylay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

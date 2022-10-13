@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import Combine
+
 
 class RegisterViewController: UIViewController {
 
+    private var viewModel = RegisterViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
+    
     
     private let registerTitleLabel: UILabel = {
         let label = UILabel()
@@ -20,6 +25,7 @@ class RegisterViewController: UIViewController {
     
     private let emailTextField: UITextField = {
        let textfield = UITextField()
+        textfield.keyboardType = .emailAddress
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         
@@ -35,7 +41,24 @@ class RegisterViewController: UIViewController {
         return textfield
     }()
     
+    private let registerButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Create account", for: .normal)
+        button.tintColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.backgroundColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
+        button.layer.masksToBounds = true
+        button.isEnabled = false
+        button.layer.cornerRadius = 25
     
+        return button
+    }()
+    
+    //when we tapped outside the keyboard, keyboard is dismissed
+    @objc private func didTapToDismiss() {
+        view.endEditing(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +66,40 @@ class RegisterViewController: UIViewController {
         view.addSubview(registerTitleLabel)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField )
+        view.addSubview(registerButton)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
         configureConstraints()
+        bindViews()
+        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
     }
     
+    
+    @objc private func didTapRegister() {
+        viewModel.createUser()
+    }
+    
+    private func bindViews() {
+        emailTextField.addTarget(self, action: #selector(didChangeEmail), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(didChangePassword), for: .editingChanged)
+        viewModel.$isRegistrationFormValid.sink {  [weak self] validationState in
+            self?.registerButton.isEnabled = validationState
+            
+        }.store(in: &subscriptions)
+        viewModel.$user.sink { [weak self] user in
+            print(user)
+        }
+        .store(in: &subscriptions)
+    }
+    
+    @objc private func didChangeEmail() {
+        viewModel.email = emailTextField.text
+        viewModel.validateRegistrationForm()
+    }
+         
+    @objc private func didChangePassword() {
+        viewModel.password = passwordTextField.text
+        viewModel.validateRegistrationForm()
+    }
     
     private func configureConstraints() {
         let registerTitleConsts = [
@@ -66,9 +120,17 @@ class RegisterViewController: UIViewController {
             passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 60)]
         
+        let registerButtonConsts = [
+            registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
+            registerButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,constant: 20),
+            registerButton.widthAnchor.constraint(equalToConstant: 180),
+            registerButton.heightAnchor.constraint(equalToConstant: 50)]
+        
+        
         NSLayoutConstraint.activate(registerTitleConsts)
         NSLayoutConstraint.activate(emailTFConsts)
-        NSLayoutConstraint.activate(passwordTFConsts    )
+        NSLayoutConstraint.activate(passwordTFConsts)
+        NSLayoutConstraint.activate(registerButtonConsts)
     }
 
 
